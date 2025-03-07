@@ -1,0 +1,20 @@
+/.tmp
+
+## Package Manager
+# Composer
+/vendor
+composer.lock
+
+## Testing
+# PHPUnit
+phpunit.xml
+
+## Coding Standards
+# PHP-CS-Fixer
+.php-cs-fixer.php
+
+## Static Analysis
+# PHPStan
+phpstan.neon
+# Psalm
+psalm.xml
