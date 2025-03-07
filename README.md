@@ -11,7 +11,6 @@ A PHP library that provides an easy way to generate HTML select boxes for timezo
 - **Continent-Based Grouping:** Optionally groups timezones by continent for better organization.
 - **Flexible Filtering:** Includes or excludes specific continents/groups based on your needs.
 - **UTC Offset Display:** Displays timezone offsets (e.g., UTC+05:30) for easy reference.
-- **Customizable Output:** Offers control over the format of the timezone names.
 
 
 ## Installation
@@ -29,8 +28,8 @@ The current releases are numbered `0.x.y`. When a non-breaking change is introdu
 
 **When a breaking change is introduced, a new `0.x` version cycle is always started.** It is therefore safe to lock your project to a given release cycle, such as `0.1.*`. If you need to upgrade to a newer release cycle, check the [release history](https://github.com/realodix/timezone/releases) for a list of changes introduced by each further `0.x.0` version.
 
-## Usage
 
+## Usage
 ### Create HTML select box
 
 ```php
@@ -76,7 +75,6 @@ Output:
     ...
 </select>
 ```
-
 
 ### Create timezone list array
 
@@ -133,7 +131,6 @@ The `onlyGroups()` and `excludeGroups()` methods utilize timezone groups to filt
 use Realodix\Timezone\Timezone;
 
 $tz = new Timezone;
-
 // Only include timezones from the America and Europe groups.
 $tz->onlyGroups(['America', 'Europe'])->toArray();
 
@@ -166,6 +163,7 @@ $tz->excludeGroups(['Arctic', 'Africa'])->toArray();
 //     // ...
 // ]
 ```
+
 
 ## License
 This package is licensed using the [MIT License](/LICENSE).
