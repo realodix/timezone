@@ -5,6 +5,7 @@ namespace Realodix\Timezone\Test;
 use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 use Realodix\Timezone\Timezone;
+use Realodix\Timezone\Util;
 
 class ToArrayTest extends TestCase
 {
@@ -53,7 +54,7 @@ class ToArrayTest extends TestCase
         return [
             'General'    => ['UTC' => '(UTC+00:00) UTC'],
             'Africa'     => ['Africa/Abidjan' => '(UTC+00:00) Abidjan'],
-            'America'    => ['America/Adak' => '(UTC-10:00) Adak'],
+            'America'    => ['America/Adak' => Util::isDst('America/Adak') ? '(UTC-09:00) Adak' : '(UTC-10:00) Adak'],
             'Antarctica' => ['Antarctica/Casey' => '(UTC+08:00) Casey'],
             'Arctic'     => ['Arctic/Longyearbyen' => '(UTC+01:00) Longyearbyen'],
             'Asia'       => ['Asia/Aden' => '(UTC+03:00) Aden'],
@@ -116,7 +117,7 @@ class ToArrayTest extends TestCase
             ],
             'Atlantic' => [
                 'Atlantic/Azores' => '(UTC-01:00) Azores',
-                'Atlantic/Bermuda' => '(UTC-04:00) Bermuda',
+                'Atlantic/Bermuda' => Util::isDst('Atlantic/Bermuda') ? '(UTC-03:00) Bermuda' : '(UTC-04:00) Bermuda',
                 'Atlantic/Canary' => '(UTC+00:00) Canary',
                 'Atlantic/Cape_Verde' => '(UTC-01:00) Cape Verde',
                 'Atlantic/Faroe' => '(UTC+00:00) Faroe',

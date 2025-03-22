@@ -62,6 +62,19 @@ final class Util
     }
 
     /**
+     * Check if a timezone is in daylight saving time
+     *
+     * @param string $timezone The timezone to check
+     * @return int 1 if Daylight Saving Time, 0 otherwise.
+     */
+    public static function isDst(string $timezone)
+    {
+        $date = new \DateTime('now', new \DateTimeZone($timezone));
+
+        return $date->format('I');
+    }
+
+    /**
      * Shorten a timezone offset to its short form
      *
      * Examples:

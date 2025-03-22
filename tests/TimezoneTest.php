@@ -5,6 +5,7 @@ namespace Realodix\Timezone\Test;
 use PHPUnit\Framework\Attributes as PHPUnit;
 use PHPUnit\Framework\TestCase;
 use Realodix\Timezone\Timezone;
+use Realodix\Timezone\Util;
 
 class TimezoneTest extends TestCase
 {
@@ -25,7 +26,12 @@ class TimezoneTest extends TestCase
         $this->assertStringContainsString('<optgroup label="Africa">', $output);
         $this->assertStringContainsString('<option value="Africa/Abidjan">(UTC', $output);
         $this->assertStringContainsString('<optgroup label="America">', $output);
-        $this->assertStringContainsString('<option value="America/New_York">(UTC-05:00)', $output);
+        $this->assertStringContainsString(
+            Util::isDst('America/Adak') ?
+            '<option value="America/New_York">(UTC-04:00)'
+            : '<option value="America/New_York">(UTC-05:00)',
+            $output,
+        );
         $this->assertStringContainsString('<optgroup label="Antarctica">', $output);
         $this->assertStringContainsString('<option value="Antarctica/Casey">(UTC', $output);
         $this->assertStringContainsString('<optgroup label="Arctic">', $output);
@@ -177,7 +183,9 @@ class TimezoneTest extends TestCase
             $output,
         );
         $this->assertStringContainsString(
-            '<option value="America/St_Johns">(UTC-03:30)&nbsp;&nbsp;&nbsp;St. Johns</option>',
+            Util::isDst('America/Adak') ?
+            '<option value="America/St_Johns">(UTC-02:30)&nbsp;&nbsp;&nbsp;St. Johns</option>'
+            : '<option value="America/St_Johns">(UTC-03:30)&nbsp;&nbsp;&nbsp;St. Johns</option>',
             $output,
         );
     }
