@@ -85,7 +85,7 @@ class TimezoneTest extends TestCase
         $output = $this->tz->toSelectBox('timezone_with_group_offset');
         $this->assertStringContainsString(
             '<optgroup label="Arctic"><option value="Arctic/Longyearbyen">(UTC+01:00)&nbsp;&nbsp;&nbsp;Longyearbyen</option></optgroup>',
-            $output
+            $output,
         );
     }
 
