@@ -71,7 +71,7 @@ final class Util
     {
         $date = new \DateTime('now', new \DateTimeZone($timezone));
 
-        return $date->format('I');
+        return (int) $date->format('I');
     }
 
     /**
