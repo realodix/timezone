@@ -26,12 +26,7 @@ class TimezoneTest extends TestCase
         $this->assertStringContainsString('<optgroup label="Africa">', $output);
         $this->assertStringContainsString('<option value="Africa/Abidjan">(UTC', $output);
         $this->assertStringContainsString('<optgroup label="America">', $output);
-        $this->assertStringContainsString(
-            Util::isDst('America/Adak') ?
-            '<option value="America/New_York">(UTC-04:00)'
-            : '<option value="America/New_York">(UTC-05:00)',
-            $output,
-        );
+        $this->assertStringContainsString('<option value="America/New_York">(UTC'.Util::getOffset('America/New_York').')', $output);
         $this->assertStringContainsString('<optgroup label="Antarctica">', $output);
         $this->assertStringContainsString('<option value="Antarctica/Casey">(UTC', $output);
         $this->assertStringContainsString('<optgroup label="Arctic">', $output);
@@ -47,7 +42,7 @@ class TimezoneTest extends TestCase
         $this->assertStringContainsString('<optgroup label="Indian">', $output);
         $this->assertStringContainsString('<option value="Indian/Antananarivo">(UTC', $output);
         $this->assertStringContainsString('<optgroup label="Pacific">', $output);
-        $this->assertStringContainsString('<option value="Pacific/Apia">(UTC+13:00)', $output);
+        $this->assertStringContainsString('<option value="Pacific/Apia">(UTC'.Util::getOffset('Pacific/Apia').')', $output);
         $this->assertStringContainsString('</optgroup>', $output);
         $this->assertStringEndsWith('</select>', $output);
 
@@ -90,7 +85,7 @@ class TimezoneTest extends TestCase
     {
         $output = $this->tz->toSelectBox('timezone_with_group_offset');
         $this->assertStringContainsString(
-            '<optgroup label="Arctic"><option value="Arctic/Longyearbyen">(UTC+01:00)&nbsp;&nbsp;&nbsp;Longyearbyen</option></optgroup>',
+            '<optgroup label="Arctic"><option value="Arctic/Longyearbyen">(UTC'.Util::getOffset('Arctic/Longyearbyen').')&nbsp;&nbsp;&nbsp;Longyearbyen</option></optgroup>',
             $output,
         );
     }
@@ -179,13 +174,11 @@ class TimezoneTest extends TestCase
     {
         $output = $this->tz->onlyGroups(['America'])->toSelectBox('timezone_default');
         $this->assertStringContainsString(
-            '<option value="America/Argentina/Rio_Gallegos">(UTC-03:00)&nbsp;&nbsp;&nbsp;Argentina / Rio Gallegos</option>',
+            '<option value="America/Argentina/Rio_Gallegos">(UTC'.Util::getOffset('America/Argentina/Rio_Gallegos').')&nbsp;&nbsp;&nbsp;Argentina / Rio Gallegos</option>',
             $output,
         );
         $this->assertStringContainsString(
-            Util::isDst('America/Adak') ?
-            '<option value="America/St_Johns">(UTC-02:30)&nbsp;&nbsp;&nbsp;St. Johns</option>'
-            : '<option value="America/St_Johns">(UTC-03:30)&nbsp;&nbsp;&nbsp;St. Johns</option>',
+            '<option value="America/St_Johns">(UTC'.Util::getOffset('America/St_Johns').')&nbsp;&nbsp;&nbsp;St. Johns</option>',
             $output,
         );
     }

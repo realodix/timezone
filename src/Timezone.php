@@ -232,7 +232,7 @@ final class Timezone
             return $fmtTzName;
         }
 
-        $offset = (new \DateTime('', new \DateTimeZone($timezoneId)))->format('P');
+        $offset = Util::getOffset($timezoneId);
         $separator = $htmlEncode ? str_repeat(self::HTML_WHITESPACE, 3) : ' ';
 
         return "(UTC{$offset})".$separator.$fmtTzName;

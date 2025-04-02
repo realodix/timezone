@@ -75,6 +75,18 @@ final class Util
     }
 
     /**
+     * Retrieves the UTC offset for a specified timezone.
+     *
+     * @param string $timezone The timezone identifier (e.g. "America/New_York")
+     * @return string The formatted offset (e.g. "+00:00", "-05:00")
+     */
+    public static function getOffset(string $timezone): string
+    {
+        return (new \DateTime('now', new \DateTimeZone($timezone)))
+            ->format('P');
+    }
+
+    /**
      * Shorten a timezone offset to its short form
      *
      * Examples:

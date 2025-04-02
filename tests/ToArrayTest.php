@@ -54,15 +54,15 @@ class ToArrayTest extends TestCase
         return [
             'General'    => ['UTC' => '(UTC+00:00) UTC'],
             'Africa'     => ['Africa/Abidjan' => '(UTC+00:00) Abidjan'],
-            'America'    => ['America/Adak' => Util::isDst('America/Adak') ? '(UTC-09:00) Adak' : '(UTC-10:00) Adak'],
-            'Antarctica' => ['Antarctica/Casey' => '(UTC+08:00) Casey'],
-            'Arctic'     => ['Arctic/Longyearbyen' => '(UTC+01:00) Longyearbyen'],
+            'America'    => ['America/Adak' => '(UTC'.Util::getOffset('America/Adak').') Adak'],
+            'Antarctica' => ['Antarctica/Casey' => '(UTC'.Util::getOffset('Antarctica/Casey').') Casey'],
+            'Arctic'     => ['Arctic/Longyearbyen' => '(UTC'.Util::getOffset('Arctic/Longyearbyen').') Longyearbyen'],
             'Asia'       => ['Asia/Aden' => '(UTC+03:00) Aden'],
-            'Atlantic'   => ['Atlantic/Azores' => '(UTC-01:00) Azores'],
-            'Australia'  => ['Australia/Adelaide' => '(UTC+10:30) Adelaide'],
-            'Europe'     => ['Europe/Amsterdam' => '(UTC+01:00) Amsterdam'],
-            'Indian'     => ['Indian/Antananarivo' => '(UTC+03:00) Antananarivo'],
-            'Pacific'    => ['Pacific/Apia' => '(UTC+13:00) Apia'],
+            'Atlantic'   => ['Atlantic/Azores' => '(UTC'.Util::getOffset('Atlantic/Azores').') Azores'],
+            'Australia'  => ['Australia/Adelaide' => '(UTC'.Util::getOffset('Australia/Adelaide').') Adelaide'],
+            'Europe'     => ['Europe/Amsterdam' => '(UTC'.Util::getOffset('Europe/Amsterdam').') Amsterdam'],
+            'Indian'     => ['Indian/Antananarivo' => '(UTC'.Util::getOffset('Indian/Antananarivo').') Antananarivo'],
+            'Pacific'    => ['Pacific/Apia' => '(UTC'.Util::getOffset('Pacific/Apia').') Apia'],
         ];
     }
 
@@ -78,7 +78,7 @@ class ToArrayTest extends TestCase
         $this->assertSame(
             [
                 'UTC' => '(UTC+00:00) UTC',
-                'Arctic/Longyearbyen' => '(UTC+01:00) Arctic / Longyearbyen',
+                'Arctic/Longyearbyen' => '(UTC'.Util::getOffset('Arctic/Longyearbyen').') Arctic / Longyearbyen',
             ],
             $result,
         );
@@ -113,19 +113,19 @@ class ToArrayTest extends TestCase
                 'UTC' => '(UTC+00:00) UTC',
             ],
             'Arctic' => [
-                'Arctic/Longyearbyen' => '(UTC+01:00) Longyearbyen',
+                'Arctic/Longyearbyen' => '(UTC'.Util::getOffset('Arctic/Longyearbyen').') Longyearbyen',
             ],
             'Atlantic' => [
-                'Atlantic/Azores' => '(UTC-01:00) Azores',
-                'Atlantic/Bermuda' => Util::isDst('Atlantic/Bermuda') ? '(UTC-03:00) Bermuda' : '(UTC-04:00) Bermuda',
-                'Atlantic/Canary' => '(UTC+00:00) Canary',
-                'Atlantic/Cape_Verde' => '(UTC-01:00) Cape Verde',
-                'Atlantic/Faroe' => '(UTC+00:00) Faroe',
-                'Atlantic/Madeira' => '(UTC+00:00) Madeira',
-                'Atlantic/Reykjavik' => '(UTC+00:00) Reykjavik',
-                'Atlantic/South_Georgia' => '(UTC-02:00) South Georgia',
-                'Atlantic/St_Helena' => '(UTC+00:00) St. Helena',
-                'Atlantic/Stanley' => '(UTC-03:00) Stanley',
+                'Atlantic/Azores' => '(UTC'.Util::getOffset('Atlantic/Azores').') Azores',
+                'Atlantic/Bermuda' => '(UTC'.Util::getOffset('Atlantic/Bermuda').') Bermuda',
+                'Atlantic/Canary' => '(UTC'.Util::getOffset('Atlantic/Canary').') Canary',
+                'Atlantic/Cape_Verde' => '(UTC'.Util::getOffset('Atlantic/Cape_Verde').') Cape Verde',
+                'Atlantic/Faroe' => '(UTC'.Util::getOffset('Atlantic/Faroe').') Faroe',
+                'Atlantic/Madeira' => '(UTC'.Util::getOffset('Atlantic/Madeira').') Madeira',
+                'Atlantic/Reykjavik' => '(UTC'.Util::getOffset('Atlantic/Reykjavik').') Reykjavik',
+                'Atlantic/South_Georgia' => '(UTC'.Util::getOffset('Atlantic/South_Georgia').') South Georgia',
+                'Atlantic/St_Helena' => '(UTC'.Util::getOffset('Atlantic/St_Helena').') St. Helena',
+                'Atlantic/Stanley' => '(UTC'.Util::getOffset('Atlantic/Stanley').') Stanley',
             ],
         ];
     }
