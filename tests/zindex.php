@@ -2,7 +2,11 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+$tz = new \Realodix\Timezone\CompactTimezone;
+echo $tz->toSelectBox('timezone_default');
+
 $tz = new \Realodix\Timezone\Timezone;
+echo '<br><br>';
 echo $tz->toSelectBox('timezone_default');
 
 $tz = new \Realodix\Timezone\Timezone;
