@@ -41,11 +41,11 @@ class ToArrayTest extends TestCase
     public function withGroup_noFilter()
     {
         $result = $this->tz->toArray();
-
         $this->assertIsArray($result);
+
         $this->assertSame(
             $this->withGroup_noFilter_baseline(),
-            collect($result)->map(fn($item) => array_slice($item, 0, 1))->toArray(),
+            array_map(fn($item) => array_slice($item, 0, 1), $result),
         );
     }
 

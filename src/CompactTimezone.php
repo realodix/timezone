@@ -57,9 +57,13 @@ final class CompactTimezone
      */
     public function toSelectBox(string $name, string $selected = '+00:00', ?array $attrs = null): string
     {
-        $attributes = collect($attrs)
-            ->map(fn($value, $key) => "{$key}=\"{$value}\"")
-            ->implode(' ');
+        $mappedAttributes = [];
+        if (!empty($attrs)) {
+            foreach ($attrs as $key => $value) {
+                $mappedAttributes[] = "{$key}=\"{$value}\"";
+            }
+        }
+        $attributes = implode(' ', $mappedAttributes);
 
         $options = [];
         foreach (self::TIMEZONE_OFFSET as $tzOffset) {

@@ -65,9 +65,13 @@ final class Timezone
             $this->validateTimezone($selected);
         }
 
-        $attributes = collect($attrs)
-            ->map(fn($value, $key) => "{$key}=\"{$value}\"")
-            ->implode(' ');
+        $mappedAttributes = [];
+        if (!empty($attrs)) {
+            foreach ($attrs as $key => $value) {
+                $mappedAttributes[] = "{$key}=\"{$value}\"";
+            }
+        }
+        $attributes = implode(' ', $mappedAttributes);
 
         $options = [];
         if ($this->hasGeneralGroup()) {
@@ -146,9 +150,9 @@ final class Timezone
     {
         $groups = $this->processGroupNames($groups);
 
-        $this->activeGroups = $this->getGroups()
-            ->diff($groups)
-            ->all();
+        $this->activeGroups = array_values(
+            array_diff($this->getGroups(), $groups),
+        );
 
         return $this;
     }
@@ -205,9 +209,11 @@ final class Timezone
      */
     private function loadContinents(): array
     {
-        return collect(self::CONTINENTS)
-            ->when(!empty($this->activeGroups), fn($c) => $c->only($this->activeGroups))
-            ->all();
+        if (empty($this->activeGroups)) {
+            return self::CONTINENTS;
+        }
+
+        return array_intersect_key(self::CONTINENTS, array_flip($this->activeGroups));
     }
 
     /**
@@ -235,13 +241,14 @@ final class Timezone
     /**
      * Get all defined group names (continents and the general).
      *
-     * @return \Illuminate\Support\Collection<int, string>
+     * @return array<int, string>
      */
-    private function getGroups()
+    private function getGroups(): array
     {
-        return collect(self::CONTINENTS)
-            ->keys()
-            ->push(self::GROUP_GENERAL);
+        $groups = array_keys(self::CONTINENTS);
+        $groups[] = self::GROUP_GENERAL;
+
+        return $groups;
     }
 
     /**
@@ -256,7 +263,7 @@ final class Timezone
         $groups = array_map(fn($group) => ucfirst($group), $groups);
 
         // When the groups are invalid
-        $invalidGroups = array_diff($groups, $this->getGroups()->all());
+        $invalidGroups = array_diff($groups, $this->getGroups());
         if (!empty($invalidGroups)) {
             throw new \Realodix\Timezone\Exceptions\InvalidGroupException($invalidGroups);
         }
