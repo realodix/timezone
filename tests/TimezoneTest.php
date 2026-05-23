@@ -67,6 +67,13 @@ class TimezoneTest extends TestCase
         $this->assertStringNotContainsString($expected, $output);
     }
 
+    public function testValidationWithOnlyGeneralGroupActive(): void
+    {
+        $this->tz->onlyGroups(['General']);
+        $output = $this->tz->toSelectBox('timezone_select', 'UTC');
+        $this->assertStringContainsString('<option value="UTC" selected>', $output);
+    }
+
     public function testSelectedValue(): void
     {
         $selectedTimezone = 'America/New_York';
