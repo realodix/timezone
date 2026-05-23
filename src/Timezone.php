@@ -2,6 +2,10 @@
 
 namespace Realodix\Timezone;
 
+use Realodix\Timezone\Exceptions\InvalidGroupException;
+use Realodix\Timezone\Exceptions\InvalidTimezoneException;
+use Realodix\Timezone\Exceptions\TimezoneOutOfScopeException;
+
 final class Timezone
 {
     const HTML_WHITESPACE = '&nbsp;';
@@ -265,7 +269,7 @@ final class Timezone
         // When the groups are invalid
         $invalidGroups = array_diff($groups, $this->getGroups());
         if (!empty($invalidGroups)) {
-            throw new \Realodix\Timezone\Exceptions\InvalidGroupException($invalidGroups);
+            throw new InvalidGroupException($invalidGroups);
         }
 
         return $groups;
@@ -280,13 +284,13 @@ final class Timezone
     {
         // When the timezone is invalid
         if (!Util::isTimezone($timezoneId)) {
-            throw new \Realodix\Timezone\Exceptions\InvalidTimezoneException($timezoneId);
+            throw new InvalidTimezoneException($timezoneId);
         }
 
         // When the timezone is out of scope
         $groupId = $timezoneId === 'UTC' ? self::GROUP_GENERAL : Util::extractContinent($timezoneId);
         if (!empty($this->activeGroups) && !in_array($groupId, $this->activeGroups)) {
-            throw new \Realodix\Timezone\Exceptions\TimezoneOutOfScopeException(
+            throw new TimezoneOutOfScopeException(
                 $timezoneId, $this->activeGroups,
             );
         }
