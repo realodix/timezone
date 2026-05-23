@@ -129,9 +129,8 @@ final class Timezone
      * Sets the filter to include only the specified continent/group names.
      *
      * @param list<string> $groups The continent/group names to include.
-     * @return $this
      */
-    public function onlyGroups(array $groups)
+    public function onlyGroups(array $groups): self
     {
         $this->activeGroups = $this->processGroupNames($groups);
 
@@ -142,9 +141,8 @@ final class Timezone
      * Sets the filter to exclude the specified continent/group names.
      *
      * @param list<string> $groups The continent/group names to exclude
-     * @return $this
      */
-    public function excludeGroups(array $groups)
+    public function excludeGroups(array $groups): self
     {
         $groups = $this->processGroupNames($groups);
 
@@ -157,10 +155,8 @@ final class Timezone
 
     /**
      * Flattens the timezone list, removing the continental grouping.
-     *
-     * @return $this
      */
-    public function flatten()
+    public function flatten(): self
     {
         $this->isGrouped = false;
 
@@ -169,10 +165,8 @@ final class Timezone
 
     /**
      * Removes the UTC offset from the displayed timezone names.
-     *
-     * @return $this
      */
-    public function omitOffset()
+    public function omitOffset(): self
     {
         $this->showOffset = false;
 
@@ -274,9 +268,8 @@ final class Timezone
      * Validate a timezone name and check if it is within the specified groups.
      *
      * @param string $timezoneId Timezone identifier (e.g. "America/New_York")
-     * @return void
      */
-    private function validateTimezone(string $timezoneId)
+    private function validateTimezone(string $timezoneId): void
     {
         // When the timezone is invalid
         if (!Util::isTimezone($timezoneId)) {
